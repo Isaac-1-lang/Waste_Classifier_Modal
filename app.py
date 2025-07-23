@@ -63,15 +63,35 @@ def load_model():
     # Load model and processor with local_files_only=True
     try:
         logger.info("Loading model...")
-        model = AutoModelForImageClassification.from_pretrained(
-            MODEL_PATH, 
-            local_files_only=True
-        )
+        # Try different model types based on the actual model
+        try:
+            model = AutoModelForImageClassification.from_pretrained(
+                MODEL_PATH, 
+                local_files_only=True
+            )
+        except ValueError as e:
+            logger.warning(f"Failed to load as ImageClassification model: {e}")
+            # If it's an OPT model, try loading it differently
+            from transformers import AutoModel
+            model = AutoModel.from_pretrained(
+                MODEL_PATH, 
+                local_files_only=True
+            )
+        
         logger.info("Loading image processor...")
-        image_processor = AutoImageProcessor.from_pretrained(
-            MODEL_PATH, 
-            local_files_only=True
-        )
+        try:
+            image_processor = AutoImageProcessor.from_pretrained(
+                MODEL_PATH, 
+                local_files_only=True
+            )
+        except Exception as e:
+            logger.warning(f"Failed to load AutoImageProcessor: {e}")
+            # Try alternative processors
+            from transformers import AutoProcessor
+            image_processor = AutoProcessor.from_pretrained(
+                MODEL_PATH, 
+                local_files_only=True
+            )
         model.eval()
         logger.info("Model and processor loaded successfully!")
         return True
