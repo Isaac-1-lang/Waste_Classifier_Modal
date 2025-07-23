@@ -1,0 +1,3 @@
+[submodule "waste_classifier_Isaac"]
+	path = waste_classifier_Isaac
+	url = https://huggingface.co/spaces/Claudineuwa/waste_classifier_Isaac
