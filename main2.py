@@ -11,7 +11,8 @@ from flask import Flask, request, jsonify
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 # Set device
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load processor and model
 processor = AutoImageProcessor.from_pretrained("Claudineuwa/waste_classifier_Isaac")
