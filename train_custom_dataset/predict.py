@@ -1,3 +1,4 @@
+import utils.session
 from ultralytics import YOLO
 
 
