@@ -1,3 +1,4 @@
+import utils.session
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import AutoImageProcessor, AutoModelForImageClassification
